@@ -5,6 +5,7 @@ import api.adocao.entity.Animal;
 import api.adocao.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Optional;
 import java.util.List;
 
@@ -18,14 +19,17 @@ public class AnimalService {
     }
 
     public Animal createAnimal(CreateAnimalDTO createAnimalDTO){
-
+        byte[] foto = null;
+        if (createAnimalDTO.foto() != null && createAnimalDTO.foto() != "" && !createAnimalDTO.foto().isEmpty() && !createAnimalDTO.foto().isBlank()) {
+            foto = Base64.getDecoder().decode(createAnimalDTO.foto());
+        }
         var entity = new Animal(
                 createAnimalDTO.nome(),
                 createAnimalDTO.raca(),
                 createAnimalDTO.dataNascimento(),
                 createAnimalDTO.Informacoes(),
                 createAnimalDTO.Status(),
-                createAnimalDTO.foto(),
+                foto,
                 createAnimalDTO.tipo(),
                 createAnimalDTO.Sexo());
 
@@ -71,8 +75,9 @@ public class AnimalService {
                 if (animal.Status() != null) {
                     animalBanco.setStatus(animal.Status());
                 }
-                if (animal.foto() != null) {
-                    animalBanco.setFoto(animal.foto());
+                if (animal.foto() != null && animal.foto() != "" && !animal.foto().isEmpty() && !animal.foto().isBlank()) {
+                    var foto = Base64.getDecoder().decode(animal.foto());
+                    animalBanco.setFoto(foto);
                 }
                 if (animal.dataNascimento() != null) {
                     animalBanco.setDataNascimento(animal.dataNascimento());
