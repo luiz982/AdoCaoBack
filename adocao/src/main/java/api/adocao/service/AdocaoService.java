@@ -35,7 +35,7 @@ public class AdocaoService {
         }
 
         Animal animalEntity = animal.get();
-        if (!animalEntity.getStatus()) {
+        if (animalEntity.getStatus() == false) {
             animalEntity.setStatus(true);
             animalRepository.save(animalEntity);
         } else {

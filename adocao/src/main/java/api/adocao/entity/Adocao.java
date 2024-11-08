@@ -28,10 +28,10 @@ public class Adocao {
     @Column(name = "NomeAdotante", nullable = false)
     private String nomeAdotante;
 
-    @Column(name = "CPFAdotante", nullable = false, length = 11)
+    @Column(name = "CPFAdotante", nullable = false, length = 50)
     private String cpfAdotante;
 
-    @Column(name = "TelefoneAdotante", nullable = false, length = 15)
+    @Column(name = "TelefoneAdotante", nullable = false, length = 50)
     private String telefoneAdotante;
 
     public Adocao() {
